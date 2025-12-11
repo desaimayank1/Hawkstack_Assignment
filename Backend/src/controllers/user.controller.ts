@@ -17,7 +17,7 @@ export const createUser = async (req: Request, res: Response) => {
                 name: username
             }
         })
-        console.log(user);
+        // console.log(user);
 
         res.status(201).json({
             message: "true",
