@@ -18,7 +18,12 @@ model Course {
   id          Int           @id @default(autoincrement())
   title       String
   description String?
+  category    String?
   instructor  String?
+  rating      Float?       
+  lessons     Int?         
+  status      String?     
+  image       String?      
   enrollments Enrollment[]
 }
 
