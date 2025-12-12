@@ -45,7 +45,7 @@ Hawkstack_Assignment/
 ```
 ```bash
 ## ⚙️ Setup Instructions
-bash
+
 # 1️⃣ Clone the repository
 git clone https://github.com/desaimayank1/Hawkstack_Assignment.git .
 cd Hawkstack_Assignment
@@ -57,15 +57,23 @@ npm install
 cd ../frontend
 npm install
 
-# 3️⃣ Setup Prisma
+# 3️⃣ Setup Prisma (in backend folder)
+cd ../backend
 npx prisma generate
 npx prisma migrate dev --name new
 
 # 4️⃣ Run the application
-npm run dev
+# Open two terminals: one for backend, one for frontend
 
-# Server runs on http://localhost:3000
-# Client runs on http://localhost:5173
+# Terminal 1: Start backend
+cd backend
+npm run dev
+# Backend server runs on http://localhost:3000
+
+# Terminal 2: Start frontend
+cd frontend
+npm run dev
+# Frontend server runs on http://localhost:5173
 ```
 
 <br><br>
