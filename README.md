@@ -18,11 +18,9 @@ Users can browse courses, enroll, and view their enrolled status — all synced 
 - REST API using Node.js + Express
 - Prisma ORM for database operations
 - Endpoint for course enrollment and user lookup
-- Handles foreign key relations (Course ↔ Enrollment)
-- CORS enabled for frontend communication
 
 ---
-
+```bash
 ## 🏗️ Project Structure
 bash
 Hawkstack_Assignment/
@@ -44,8 +42,8 @@ Hawkstack_Assignment/
 │ └── App.tsx
 └── package.json
 
-
-
+```
+```bash
 ## ⚙️ Setup Instructions
 bash
 # 1️⃣ Clone the repository
@@ -68,7 +66,7 @@ npm run dev
 
 # Server runs on http://localhost:3000
 # Client runs on http://localhost:5173
-
+```
 
 <br><br>
 
