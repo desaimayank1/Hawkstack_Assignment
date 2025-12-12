@@ -13,6 +13,8 @@ type Course = {
 };
 
 export function CourseCard({ course }: { course: Course }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const username = useStore((s) => s.username);
   const updateCourseStatus = useStore((s) => s.updateCourseStatus);
 
@@ -41,7 +43,18 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 flex flex-col">
       <div className="h-44 w-full relative">
-        <img src={course.image} alt="course" className="object-cover w-full h-full" />
+        {!imageLoaded && !imageError && (
+          <div className="w-full h-full bg-gray-200 animate-pulse" />
+        )}
+
+        <img
+          src={course.image}
+          alt="course"
+          className={`object-cover w-full h-full transition-opacity duration-300 ${imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          onLoad={() => setImageLoaded(true)}
+          onError={() => setImageError(true)}
+        />
         <div className="absolute left-4 top-4 bg-white/80 px-3 py-1 rounded-full text-xs font-medium">
           {course.category}
         </div>
@@ -78,9 +91,8 @@ export function CourseCard({ course }: { course: Course }) {
             <button
               onClick={handleEnroll}
               disabled={loading}
-              className={`px-4 py-2 rounded-lg text-sm text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center ${
-                loading ? "cursor-not-allowed" : ""
-              }`}
+              className={`px-4 py-2 rounded-lg text-sm text-white bg-blue-600 hover:bg-blue-700 transition flex items-center justify-center ${loading ? "cursor-not-allowed" : ""
+                }`}
             >
               {loading ? (
                 <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

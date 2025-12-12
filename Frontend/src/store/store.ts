@@ -16,13 +16,10 @@ type UIStore = {
     username: string;
     isLoggedIn: boolean;
 
-    currentPage: "login" | "dashboard";
-
     courses: Course[];
 
     setUsername: (name: string) => void;
     logout: () => void;
-    setPage: (page: "login" | "dashboard") => void;
 
     setCourses: (data: Course[]) => void;
     updateCourseStatus: (id: string, status: Course["status"]) => void;
@@ -43,11 +40,8 @@ export const useStore = create(
                 set({
                     isLoggedIn: false,
                     username: "",
-                    currentPage: "login",
                     courses: [],
                 }),
-
-            setPage: (page) => set({ currentPage: page }),
 
             setCourses: (data) => set({ courses: data }),
 

@@ -1,8 +1,15 @@
 import { useStore } from "../store/store";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
   const username = useStore((s) => s.username);
   const logout = useStore((s) => s.logout);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header className="max-w-7xl mx-auto flex items-center justify-between py-4 mb-1 bg-white px-3 sm:px-6">
@@ -23,7 +30,7 @@ export function Header() {
       </div>
 
       <button
-        onClick={logout}
+        onClick={handleLogout}
         className="text-sm px-4 py-1.5 rounded-md bg-red-50 text-red-600 border border-red-100"
       >
         Logout
