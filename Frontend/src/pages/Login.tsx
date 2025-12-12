@@ -1,53 +1,63 @@
 import { useState } from "react";
 import { useStore } from "../store/store";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const username = useStore((s) => s.username);
   const setUsername = useStore((s) => s.setUsername);
-  const setPage = useStore((s) => s.setPage);
   const setLoggedIn = (val: boolean) => useStore.setState({ isLoggedIn: val });
   const [errormsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
 
   const loginUser = async () => {
     try {
-      if (!username) return;
+      if (!username.trim() || username.startsWith(" ")) {
+        setErrorMsg("Invalid username");
+        return;
+      }
+
       const res = await fetch(`http://localhost:3000/user/${username}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
 
       if (res.status == 400) {
-        const data = await res.json()
-        setErrorMsg(data.error)
+        const data = await res.json();
+        setErrorMsg(data.error);
         return;
       }
       setLoggedIn(true);
-      setPage("dashboard");
+      navigate("/"); 
     } catch (err) {
       console.error(err);
       return null;
     }
-  }
+  };
 
   const createUser = async () => {
     try {
+      if (!username.trim() || username.startsWith(" ")) {
+        setErrorMsg("Invalid username");
+        return;
+      }
+
       const res = await fetch(`http://localhost:3000/user/${username}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
 
       if (res.status == 400) {
-        const data = await res.json()
-        setErrorMsg(data.error)
+        const data = await res.json();
+        setErrorMsg(data.error);
         return;
       }
       setLoggedIn(true);
-      setPage("dashboard");
+      navigate("/");
     } catch (err) {
       console.error(err);
       return null;
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
@@ -71,21 +81,20 @@ export default function LoginPage() {
           {errormsg != '' ? <span className="text-[14px] pl-1 text-red-400">{errormsg}</span> : <></>}
         </div>
 
-        <div className="flex flex-col gap-4 mt-8">
-          <button
-            onClick={loginUser}
-            className="w-full bg-indigo-600 text-white py-3 rounded-xl text-sm font-medium shadow hover:bg-indigo-700"
-          >
-            Continue
-          </button>
+        <button
+          onClick={loginUser}
+          className="w-full bg-indigo-600 text-white py-3 rounded-xl text-sm mb-3 font-medium shadow hover:bg-indigo-700"
+        >
+          Continue
+        </button>
 
-          <button
-            onClick={createUser}
-            className="w-full border border-gray-300 py-3 rounded-xl text-sm font-medium hover:bg-gray-100"
-          >
-            New User
-          </button>
-        </div>
+        <button
+          onClick={createUser}
+          className="w-full border border-gray-300 py-3 rounded-xl text-sm font-medium hover:bg-gray-100"
+        >
+          New User
+        </button>
+
       </div>
     </div>
   );

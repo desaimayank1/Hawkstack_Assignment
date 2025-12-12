@@ -8,17 +8,8 @@ export default function DashboardPage() {
   const courses = useStore((s) => s.courses);
   const setCourses = useStore((s) => s.setCourses);
   const username = useStore((s) => s.username);
-  const isLoggedIn = useStore((s) => s.isLoggedIn);
-  const setPage = useStore((s) => s.setPage);
 
   useEffect(() => {
-    if (!isLoggedIn || !username) {
-      setPage("login");
-    }
-  }, [isLoggedIn, username]);
-
-  useEffect(() => {
-    
     if (!username) return;
 
     const fetchData = async () => {
